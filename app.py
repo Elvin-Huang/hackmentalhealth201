@@ -3,6 +3,13 @@ from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse
 import datetime
 import pytz
+from wordcloud import WordCloud, STOPWORDS
+from PIL import Image
+import urllib
+import requests
+import numpy as np
+import matplotlib.pyplot as plt
+from string import punctuation
 
 account_sid = 'AC5c0df5a188c9e3d4d0e222fbe9541f32'
 auth_token = 'd1f8d9f67e61ab158cda87ce21516958'
@@ -26,19 +33,23 @@ def sms_response_and_send():
     nowlist = nowlist[0:nowlist.index('.')]
     #Opens the file that needs to be appended
     openfile = open('messages.txt','a')
+    notimefile = open('notimestamp.txt','a')
     #String of time + body + newline
     if textbody != None:
         #Responding with a text message (Generic)
         resp = MessagingResponse()
-        #
+        #Checking for keywords and sending messages
         for keyword in keywords.keys():
             if keyword in textbody.lower():
                 resp.message(keywords[keyword])
-        #
+        #Writes the text to a file
         openfile.write('['+str(''.join(nowlist))+'] '+str(textbody)+'\n')
         count =+ 1
+        #Write to a file without time stamp
+        notimefile.write(str(textbody)+'\n')
     #Close the file to save the message
     openfile.close()
+    notimefile.close()
     #Statement to return
     statement = "Last Refresh was at "+str(''.join(nowlist))
     #Return a nice message
@@ -47,6 +58,7 @@ def sms_response_and_send():
 #App Route to print out all text messages when prompted
 @app.route("/file", methods=['GET', 'POST'])
 def updated_file():
+    agiantstring = ''
     #Opens the appended file of messages
     openfile = open('messages.txt','r')
     #Sets message count to 0
@@ -57,6 +69,27 @@ def updated_file():
         allmessages = allmessages + line
     #Close file
     openfile.close()
+    #
+    for line in notimefile:
+        line = line.strip()
+        for word in line.split():
+            word = word.strip()
+            word = word.lower()
+            for i in punctuation:
+                word = word.replace(punctuation,'')
+            agiantstring = agiantstring + ' ' + str(word)
+    #Creates the layout for the functions
+    mask = np.array(Image.open(requests.get('https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Science/H-P/heart.adapt.945.1.jpg', stream=True).raw))
+    # This function takes in your text and your mask and generates a wordcloud. 
+    def generate_wordcloud(words, mask):
+        word_cloud = WordCloud(width = 512, height = 512, background_color='white', stopwords=STOPWORDS, mask=mask).generate(words)
+        plt.figure(figsize=(20,18),facecolor = 'white', edgecolor='blue')
+        plt.imshow(word_cloud)
+        plt.axis('off')
+        plt.tight_layout(pad=0)
+        plt.show()
+    #Run the following to generate your wordcloud
+    generate_wordcloud(words, mask)
     #Return the string
     return allmessages
     
