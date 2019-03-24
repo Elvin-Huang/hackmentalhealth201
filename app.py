@@ -31,8 +31,9 @@ def sms_response_and_send():
         #Responding with a text message (Generic)
         resp = MessagingResponse()
         #
-        if (keyword in keywords.keys()) in textbody:
-            resp.message(keywords[keyword])
+        for keyword in keywords.keys():
+            if keyword in textbody.lower():
+                resp.message(keywords[keyword])
         #
         openfile.write('['+str(''.join(nowlist))+'] '+str(textbody)+'\n')
         count =+ 1
