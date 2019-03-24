@@ -66,11 +66,11 @@ def updated_file():
     for line in notimefile:
         if line:
             #It forms it into one giant string
-            messages = messages.append(line)
+            #messages = messages.append(line)
     #Close file
     notimefile.close()
     #Return the string
-    return render_template('messages.html', my_string="Wheeeee!", my_message_list=[0,1,2,3,4,5])
+    return render_template('messages.html', my_string="Wheeeee!", my_message_list=messages)
     
 
 if __name__ == "__main__":
