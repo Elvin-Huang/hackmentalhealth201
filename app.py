@@ -1,4 +1,4 @@
-from flask import Flask, request, escape
+from flask import Flask, request, render_template
 from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse
 import datetime
@@ -62,15 +62,15 @@ def updated_file():
     #Opens the appended file of messages
     notimefile = open('notimestamp.txt','r')
     #Sets message count to 0
-    allmessages = ''
+    allmessages = []
     #For each line in the file
     for line in notimefile:
         #It forms it into one giant string
-        allmessages = allmessages + '<br>' + line + '</br>'
+        allmessages = allmessages.append(line)
     #Close file
     notimefile.close()
     #Return the string
-    return escape(allmessages)
+    return render_template('messages.html', my_string="Wheeeee!", my_message_list=allmessages)
     
 
 if __name__ == "__main__":
