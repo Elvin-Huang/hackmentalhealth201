@@ -62,16 +62,16 @@ def updated_file():
     #Opens the appended file of messages
     notimefile = open('notimestamp.txt','r')
     #Sets message count to 0
-    allmessages = ['test']
+    messages = ['test']
     #For each line in the file
     for line in notimefile:
         if line:
             #It forms it into one giant string
-            allmessages = allmessages.append(line)
+            messages = messages.append(line)
     #Close file
     notimefile.close()
     #Return the string
-    return render_template('messages.html', my_string="Wheeeee!", my_message_list=allmessages)
+    return render_template('messages.html', my_string="Wheeeee!", my_message_list=messages)
     
 
 if __name__ == "__main__":
