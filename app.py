@@ -61,7 +61,7 @@ def updated_file():
     agiantstring = ''
     #Opens the appended file of messages
     openfile = open('messages.txt','r')
-    notimefile = open('notimestamp','r')
+    notimefile = open('notimestamp.txt','r')
     #Sets message count to 0
     allmessages = ''
     #For each line in the file
