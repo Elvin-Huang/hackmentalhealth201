@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, escape
 from twilio.rest import Client
 from twilio.twiml.messaging_response import MessagingResponse
 import datetime
@@ -57,6 +57,7 @@ def sms_response_and_send():
 
 #App Route to print out all text messages when prompted
 @app.route("/file", methods=['GET', 'POST'])
+
 def updated_file():
     #Opens the appended file of messages
     notimefile = open('notimestamp.txt','r')
