@@ -64,7 +64,7 @@ def updated_file():
     messages = []
     #For each line in the file
     for paragraph in notimefile:
-        messages.insert(paragraph,-1)
+        messages.insert(-1, paragraph)
     #Close file
     notimefile.close()
     #Return the string
