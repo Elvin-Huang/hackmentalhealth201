@@ -80,6 +80,7 @@ def updated_file():
                 word = word.replace(punctuation,'')
             agiantstring = agiantstring + ' ' + str(word)
     #Creates the layout for the functions
+    words = againststring
     mask = np.array(Image.open(requests.get('https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Science/H-P/heart.adapt.945.1.jpg', stream=True).raw))
     # This function takes in your text and your mask and generates a wordcloud. 
     def generate_wordcloud(words, mask):
