@@ -64,11 +64,10 @@ def updated_file():
     messages = ['test']
     #For each line in the file
     for line in notimefile:
-        if line:
-            for i in punctuation:
-                line = line.replace(i,'') 
-                #It forms it into one giant string
-                messages = messages.append(line)
+        for i in punctuation:
+            line = line.replace(i,'') 
+            #It forms it into one giant string
+            messages = messages.append(line)
     #Close file
     notimefile.close()
     #Return the string
