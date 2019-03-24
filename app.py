@@ -15,7 +15,7 @@ account_sid = 'AC5c0df5a188c9e3d4d0e222fbe9541f32'
 auth_token = 'd1f8d9f67e61ab158cda87ce21516958'
 client = Client(account_sid, auth_token)
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='template')
 
 #App Route to get body of a text messages, appends to a text file
 @app.route("/sms", methods=['GET', 'POST'])
@@ -65,6 +65,7 @@ def updated_file():
     #For each line in the file
     for line in notimefile:
         if line:
+            pass
             #It forms it into one giant string
             #messages = messages.append(line)
     #Close file
