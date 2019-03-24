@@ -57,7 +57,6 @@ def sms_response_and_send():
 
 #App Route to print out all text messages when prompted
 @app.route("/file", methods=['GET', 'POST'])
-
 def updated_file():
     #Opens the appended file of messages
     notimefile = open('notimestamp.txt','r')
