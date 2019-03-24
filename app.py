@@ -68,7 +68,7 @@ def updated_file():
     #Close file
     notimefile.close()
     #Return the string
-    return render_template('messages.html', my_string="Wheeeee!", my_message_list=messages)
+    return render_template('messages.html', my_string="Hack Mental Health!", my_message_list=messages)
     
 
 if __name__ == "__main__":
