@@ -62,11 +62,12 @@ def updated_file():
     #Opens the appended file of messages
     notimefile = open('notimestamp.txt','r')
     #Sets message count to 0
-    allmessages = []
+    allmessages = ['test']
     #For each line in the file
     for line in notimefile:
-        #It forms it into one giant string
-        allmessages = allmessages.append(line)
+        if line:
+            #It forms it into one giant string
+            allmessages = allmessages.append(line)
     #Close file
     notimefile.close()
     #Return the string
