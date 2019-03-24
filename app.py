@@ -66,7 +66,7 @@ def updated_file():
     for line in notimefile:
         if line:
             for i in punctuation:
-                line = line.replace(punctuation,'') 
+                line = line.replace(i,'') 
                 #It forms it into one giant string
                 messages = messages.append(line)
     #Close file
