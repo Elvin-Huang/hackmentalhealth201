@@ -42,6 +42,8 @@ def sms_response_and_send():
         for keyword in keywords.keys():
             if keyword in textbody.lower():
                 resp.message(keywords[keyword])
+            else:
+                resp.message("Thanks for submitting your thoughts to the We Care at Hack Mental Health UCSF!")
         #Writes the text to a file
         openfile.write('['+str(''.join(nowlist))+'] '+str(textbody)+'\n')
         count =+ 1
