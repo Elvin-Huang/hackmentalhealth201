@@ -42,7 +42,7 @@ def sms_response_and_send():
     #Statement to return
     statement = "Last Refresh was at "+str(''.join(nowlist))
     #Return a nice message
-    return statement
+    return str(resp) + statement
 
 #App Route to print out all text messages when prompted
 @app.route("/file", methods=['GET', 'POST'])
