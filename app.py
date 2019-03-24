@@ -58,42 +58,18 @@ def sms_response_and_send():
 #App Route to print out all text messages when prompted
 @app.route("/file", methods=['GET', 'POST'])
 def updated_file():
-    agiantstring = ''
     #Opens the appended file of messages
-    openfile = open('messages.txt','r')
     notimefile = open('notimestamp.txt','r')
     #Sets message count to 0
     allmessages = ''
     #For each line in the file
-    for line in openfile:
-        #It forms it into one giant string
-        allmessages = allmessages + line
-    #Close file
-    openfile.close()
-    #
     for line in notimefile:
-        line = line.strip()
-        for word in line.split():
-            word = word.strip()
-            word = word.lower()
-            for i in punctuation:
-                word = word.replace(punctuation,'')
-            agiantstring = agiantstring + ' ' + str(word)
-    #Creates the layout for the functions
-    words = agiantstring
-    mask = np.array(Image.open(requests.get('https://kids.nationalgeographic.com/content/dam/kids/photos/articles/Science/H-P/heart.adapt.945.1.jpg', stream=True).raw))
-    # This function takes in your text and your mask and generates a wordcloud. 
-    def generate_wordcloud(words, mask):
-        word_cloud = WordCloud(width = 512, height = 512, background_color='white', stopwords=STOPWORDS, mask=mask).generate(words)
-        plt.figure(figsize=(20,18),facecolor = 'white', edgecolor='blue')
-        plt.imshow(word_cloud)
-        plt.axis('off')
-        plt.tight_layout(pad=0)
-        plt.show()
-    #Run the following to generate your wordcloud
-    generate_wordcloud(words, mask)
+        #It forms it into one giant string
+        allmessages = allmessages + '<br>' + line + '</br>'
+    #Close file
+    notimefile.close()
     #Return the string
-    return allmessages
+    return escape(allmessages)
     
 
 if __name__ == "__main__":
