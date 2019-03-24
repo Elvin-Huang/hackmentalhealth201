@@ -65,9 +65,8 @@ def updated_file():
     #For each line in the file
     for line in notimefile:
         if line:
-            pass
             #It forms it into one giant string
-            #messages = messages.append(line)
+            messages = messages.append(line)
     #Close file
     notimefile.close()
     #Return the string
