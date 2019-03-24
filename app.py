@@ -1,5 +1,6 @@
 from flask import Flask, request
 from twilio.rest import Client
+from twilio.twiml.messaging_response import MessagingResponse
 import datetime
 import pytz
 
@@ -11,8 +12,13 @@ app = Flask(__name__)
 
 #App Route to get body of a text messages, appends to a text file
 @app.route("/sms", methods=['GET', 'POST'])
-def sms_record_response():
-    #Body of the Text Message
+def sms_response_and_send():
+    #Keywords to send a personalized message
+    keywords = {'suicide':'Hello, you have mentioned the word suicide, if you would like to get some help, please do not hesitate to call the 24/7 hotline dedicated to helping people with serious issues related to suicide. 1-800-273-8255.'\
+                'lonely':'Hello, you have mentioned the word lonely, if you would like to talk to someone, please do not hesitate to call the 24/7 hotline with trained volunteers who will listen and talk to you. 1-800-932-4616.'\
+                'stress':'Hello, you have mentioned the word stress, if you are looking for a way to destress, a few recommendations are: yoga, meditation, exercise, and unplug. If you would like to discuss other ideas, go to https://www.wecarecommunity.club/breathe.'\
+                'burnout':'Hello, you have mentioned the word burnout, if you are looking for a way to destress, a few recommendations are: yoga, meditation, exercise, and unplug. If you would like to discuss other ideas, go to https://www.wecarecommunity.club/breathe.'}
+    #Body of the incoming Text Message
     textbody = request.values.get('Body', None)
     #Creating a timestamp for the message
     now = datetime.datetime.now(pytz.timezone('US/Pacific'))
@@ -22,6 +28,12 @@ def sms_record_response():
     openfile = open('messages.txt','a')
     #String of time + body + newline
     if textbody != None:
+        #Responding with a text message (Generic)
+        resp = MessagingResponse()
+        #
+        if (keyword in keywords.keys()) in textbody:
+            resp.message(keywords[keyword])
+        #
         openfile.write('['+str(''.join(nowlist))+'] '+str(textbody)+'\n')
         count =+ 1
     #Close the file to save the message
